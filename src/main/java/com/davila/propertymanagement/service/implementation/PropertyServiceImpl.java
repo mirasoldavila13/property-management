@@ -1,5 +1,6 @@
 package com.davila.propertymanagement.service.implementation;
 
+import com.davila.propertymanagement.converter.PropertyConverter;
 import com.davila.propertymanagement.dto.PropertyDTO;
 import com.davila.propertymanagement.entity.PropertyEntity;
 import com.davila.propertymanagement.repository.PropertyRepository;
@@ -12,18 +13,11 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Autowired
     private PropertyRepository propertyRepository;
-
+    @Autowired
+    private PropertyConverter propertyConverter;
     @Override
     public PropertyDTO saveProperty(PropertyDTO propertyDTO) {
-       //convert propertyDTO to entity
-        PropertyEntity pe = new PropertyEntity();
-        pe.setTitle(propertyDTO.getTitle());
-        pe.setDescription(propertyDTO.getDescription());
-        pe.setOwnerName(propertyDTO.getOwnerName());
-        pe.setOwnerEmail(propertyDTO.getOwnerEmail());
-        pe.setPrice(propertyDTO.getPrice());
-        pe.setAddress(propertyDTO.getAddress());
-
+        PropertyEntity pe = propertyConverter.convertDTOtoEntity(propertyDTO);
         propertyRepository.save(pe);
         return null;
     }
