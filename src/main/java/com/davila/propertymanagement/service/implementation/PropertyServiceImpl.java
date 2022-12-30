@@ -18,7 +18,9 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public PropertyDTO saveProperty(PropertyDTO propertyDTO) {
         PropertyEntity pe = propertyConverter.convertDTOtoEntity(propertyDTO);
-        propertyRepository.save(pe);
-        return null;
+        pe = propertyRepository.save(pe);
+        //convert to pto
+        propertyDTO = propertyConverter.convertEntitytoDTO(pe);
+        return propertyDTO;
     }
 }
