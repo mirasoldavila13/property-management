@@ -24,6 +24,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO register(UserDTO userDTO) {
+        Optional<UserEntity> optUe = userRepository.findByOwnerEmail(userDTO.getOwnerEmail());
+        if(optUe.isPresent()){
+            List<ErrorModel> errorModelList = new ArrayList<>();
+            ErrorModel errorModel = new ErrorModel();
+            errorModel.setCode("EMAIL_ALREADY_EXCIST");
+            errorModel.setMessage("The Email With Which You Are Trying To Register Already Exist");
+            errorModelList.add(errorModel);
+            throw new BusinessException(errorModelList);
+        }
+
         UserEntity userEntity = userConverter.convertDTOtoEntity(userDTO);
         userEntity = userRepository.save(userEntity);
         userDTO = userConverter.convertEntitytoDTO(userEntity);
@@ -45,7 +55,6 @@ public class UserServiceImpl implements UserService {
             errorModelList.add(errorModel);
             throw new BusinessException(errorModelList);
         }
-
         return userDTO;
     }
 }
