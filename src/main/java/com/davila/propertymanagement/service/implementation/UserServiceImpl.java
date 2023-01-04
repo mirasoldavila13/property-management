@@ -28,12 +28,11 @@ public class UserServiceImpl implements UserService {
         if(optUe.isPresent()){
             List<ErrorModel> errorModelList = new ArrayList<>();
             ErrorModel errorModel = new ErrorModel();
-            errorModel.setCode("EMAIL_ALREADY_EXCIST");
+            errorModel.setCode("EMAIL_ALREADY_EXIST");
             errorModel.setMessage("The Email With Which You Are Trying To Register Already Exist");
             errorModelList.add(errorModel);
             throw new BusinessException(errorModelList);
         }
-
         UserEntity userEntity = userConverter.convertDTOtoEntity(userDTO);
         userEntity = userRepository.save(userEntity);
         userDTO = userConverter.convertEntitytoDTO(userEntity);
