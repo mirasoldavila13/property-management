@@ -32,8 +32,8 @@ public class CustomExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<List<ErrorModel>> handleBusinessException(BusinessException bex){
        for(ErrorModel em: bex.getErrors()){
-           logger.info("BusinessException is thrown - level-info: {} - {}", em.getCode(), em.getMessage());
-           logger.debug("BusinessException is thrown - level-debug: {} - {}", em.getCode(), em.getMessage());
+           logger.debug("BusinessException is thrown - level- debug: {} - {}", em.getCode(), em.getMessage());
+           logger.info("BusinessException is thrown - level- info: {} - {}", em.getCode(), em.getMessage());
            logger.warn("BusinessException is thrown - level-warn: {} - {}", em.getCode(), em.getMessage());
            logger.error("BusinessException is thrown - level-error: {} - {}", em.getCode(), em.getMessage());
        }
